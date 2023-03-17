@@ -39,9 +39,21 @@ drone.on('open', error => {
     members.splice(index, 1);
     updateMembersDOM();
   });
+  
+  room.on('data', (text, member) function addMessageToListDOM(text, member) {
+  const censoredWords = ['word1', 'word2', 'word3']; // replace with your own list of words to censor
+  const censoredText = censoredWords.reduce((prev, curr) => {
+    const regex = new RegExp(curr, 'gi');
+    return prev.replace(regex, '#'.repeat(curr.length));
+  }, text);
+  const el = DOM.messages;
+  const wasTop = el.scrollTop === el.scrollHeight - el.clientHeight;
+  el.appendChild(createMessageElement(censoredText, member));
+  if (wasTop) {
+    el.scrollTop = el.scrollHeight - el.clientHeight;
+  }
+}
 
-  room.on('data', (text, member) => {
-    if (member) {
       addMessageToListDOM(text, member);
     } else {
       // Message is from server
