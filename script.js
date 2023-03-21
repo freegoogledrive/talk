@@ -1,5 +1,4 @@
 hckname = prompt("client.name");
-hck = prompt("client.color");
 
 const CLIENT_ID = 'hWmT5ZuGe51IgiMD';
 
@@ -61,15 +60,13 @@ drone.on('error', error => {
 });
 
 function getRandomName() {
-  return (
-    hckname
-  );
+  return hckname
 }
 
 function getRandomColor() {
-  return (
-    hckcolor
-  )
+  while (2==2) {
+    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  }
 }
 
 //------------- DOM STUFF
@@ -101,7 +98,7 @@ function createMemberElement(member) {
   const el = document.createElement('div');
   el.appendChild(document.createTextNode(name));
   el.className = 'member';
-  el.style.color = color;
+  el.style.color = 'color';
   return el;
 }
 
