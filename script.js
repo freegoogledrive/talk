@@ -1,3 +1,4 @@
+hckname = prompt("client.name")
 
 const CLIENT_ID = 'hWmT5ZuGe51IgiMD';
 
@@ -60,12 +61,12 @@ drone.on('error', error => {
 
 function getRandomName() {
   return (
-    "PurePro4561"
+    hckname
   );
 }
 
 function getRandomColor() {
-  return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  return '#FF00FF'
 }
 
 //------------- DOM STUFF
