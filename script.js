@@ -1,4 +1,5 @@
-hckname = prompt("client.name")
+hckname = prompt("client.name");
+hck = prompt("client.color");
 
 const CLIENT_ID = 'hWmT5ZuGe51IgiMD';
 
@@ -66,7 +67,9 @@ function getRandomName() {
 }
 
 function getRandomColor() {
-  return '#FF00FF'
+  return (
+    hckcolor
+  )
 }
 
 //------------- DOM STUFF
