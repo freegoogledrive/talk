@@ -89,6 +89,7 @@ function sendMessage() {
     room: 'observable-room',
     message: value,
   });
+  updateMembersDOM();
 }
 
 function createMemberElement(member) {
@@ -123,4 +124,5 @@ function addMessageToListDOM(text, member) {
   if (wasTop) {
     el.scrollTop = el.scrollHeight - el.clientHeight;
   }
+  updateMembersDOM();
 }
