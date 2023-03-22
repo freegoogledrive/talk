@@ -97,7 +97,7 @@ function createMemberElement(member) {
   const el = document.createElement('div');
   el.appendChild(document.createTextNode(name));
   el.className = 'member';
-  el.style.color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  el.style.color = 'color';
   return el;
 }
 
