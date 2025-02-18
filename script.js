@@ -145,15 +145,13 @@ function resizeImage(file, callback) {
       // Set canvas size to 200x200
       canvas.width = 100;
       canvas.height = 100;
+      int compression = 0.5;
       
       // Draw the image on the canvas, automatically resized to fit
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      // Compress the image
-      const resizedBase64 = canvas.toDataURL(file.type, 0.5);
-
       // Convert the resized image to a Base64 string
-      const resizedBase64 = canvas.toDataURL(file.type); // File type: "image/png", "image/jpeg", etc.
+      const resizedBase64 = canvas.toDataURL(file.type, compression); // File type: "image/png", "image/jpeg", etc.
       callback(resizedBase64);
     };
     
