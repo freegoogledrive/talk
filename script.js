@@ -9,6 +9,16 @@ const drone = new ScaleDrone(CLIENT_ID, {
 
 let members = [];
 
+// Define createMemberElement before any other function that uses it
+function createMemberElement(member) {
+  const { name, color } = member.clientData;
+  const el = document.createElement('div');
+  el.appendChild(document.createTextNode(name));
+  el.className = 'member';
+  el.style.color = color;
+  return el;
+}
+
 function updateMembersDOM() {
   DOM.membersCount.innerText = `${members.length} users in room:`;
   DOM.membersList.innerHTML = '';  // Clear current members list
@@ -130,15 +140,6 @@ function sendImageMessage(file) {
     });
   };
   reader.readAsDataURL(file);  // Convert the image to base64
-}
-
-function createMemberElement(member) {
-  const { name, color } = member.clientData;
-  const el = document.createElement('div');
-  el.appendChild(document.createTextNode(name));
-  el.className = 'member';
-  el.style.color = color;
-  return el;
 }
 
 function createMessageElement(text, member) {
