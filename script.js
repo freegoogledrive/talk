@@ -143,8 +143,8 @@ function resizeImage(file, callback) {
       const ctx = canvas.getContext('2d');
       
       // Set canvas size to 200x200
-      canvas.width = 100;
-      canvas.height = 100;
+      canvas.width = 150;
+      canvas.height = 150;
       
       // Draw the image on the canvas, automatically resized to fit 200x200
       ctx.drawImage(img, 0, 0, 150, 150);
