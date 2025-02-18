@@ -1,4 +1,3 @@
-
 const CLIENT_ID = 'Ww9KIEXUL5KzVED0';
 
 const drone = new ScaleDrone(CLIENT_ID, {
@@ -9,6 +8,14 @@ const drone = new ScaleDrone(CLIENT_ID, {
 });
 
 let members = [];
+
+function updateMembersDOM() {
+  DOM.membersCount.innerText = `${members.length} users in room:`;
+  DOM.membersList.innerHTML = '';  // Clear current members list
+  members.forEach(member =>
+    DOM.membersList.appendChild(createMemberElement(member))  // Add each member to the list
+  );
+}
 
 drone.on('open', error => {
   if (error) {
@@ -26,23 +33,22 @@ drone.on('open', error => {
 
   room.on('members', m => {
     members = m;
-    updateMembersDOM();
+    updateMembersDOM();  // Call updateMembersDOM after getting the members
   });
 
   room.on('member_join', member => {
     members.push(member);
-    updateMembersDOM();
+    updateMembersDOM();  // Update member list when someone joins
   });
 
-  room.on('member_leave', ({id}) => {
+  room.on('member_leave', ({ id }) => {
     const index = members.findIndex(member => member.id === id);
     members.splice(index, 1);
-    updateMembersDOM();
+    updateMembersDOM();  // Update member list when someone leaves
   });
-  
+
   room.on('data', (text, member) => {
-     if (member) {
-       
+    if (member) {
       addMessageToListDOM(text, member);
     } else {
       // Message is from server
@@ -124,6 +130,15 @@ function sendImageMessage(file) {
     });
   };
   reader.readAsDataURL(file);  // Convert the image to base64
+}
+
+function createMemberElement(member) {
+  const { name, color } = member.clientData;
+  const el = document.createElement('div');
+  el.appendChild(document.createTextNode(name));
+  el.className = 'member';
+  el.style.color = color;
+  return el;
 }
 
 function createMessageElement(text, member) {
