@@ -130,7 +130,7 @@ function sendTextMessage(text) {
   });
 }
 
-// Function to resize the image to 200x200
+// Function to resize the image
 function resizeImage(file, callback) {
   const reader = new FileReader();
   
@@ -143,11 +143,14 @@ function resizeImage(file, callback) {
       const ctx = canvas.getContext('2d');
       
       // Set canvas size to 200x200
-      canvas.width = 150;
-      canvas.height = 150;
+      canvas.width = 100;
+      canvas.height = 100;
       
-      // Draw the image on the canvas, automatically resized to fit 200x200
-      ctx.drawImage(img, 0, 0, 150, 150);
+      // Draw the image on the canvas, automatically resized to fit
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Compress the image
+      const resizedBase64 = canvas.toDataURL(file.type, 0.5);
 
       // Convert the resized image to a Base64 string
       const resizedBase64 = canvas.toDataURL(file.type); // File type: "image/png", "image/jpeg", etc.
