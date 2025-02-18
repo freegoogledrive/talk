@@ -131,7 +131,7 @@ function sendTextMessage(text) {
 }
 
 // Function to resize the image to 200x200
-function resizeImageTo200x200(file, callback) {
+function resizeImage(file, callback) {
   const reader = new FileReader();
   
   reader.onloadend = function () {
@@ -143,11 +143,11 @@ function resizeImageTo200x200(file, callback) {
       const ctx = canvas.getContext('2d');
       
       // Set canvas size to 200x200
-      canvas.width = 200;
-      canvas.height = 200;
+      canvas.width = 100;
+      canvas.height = 100;
       
       // Draw the image on the canvas, automatically resized to fit 200x200
-      ctx.drawImage(img, 0, 0, 200, 200);
+      ctx.drawImage(img, 0, 0, 150, 150);
 
       // Convert the resized image to a Base64 string
       const resizedBase64 = canvas.toDataURL(file.type); // File type: "image/png", "image/jpeg", etc.
@@ -162,7 +162,7 @@ function resizeImageTo200x200(file, callback) {
 
 // Function to send image messages after resizing
 function sendImageMessage(file) {
-  resizeImageTo200x200(file, function(resizedBase64) {
+  resizeImage(file, function(resizedBase64) {
     drone.publish({
       room: 'observable-room',
       message: { type: 'image', content: resizedBase64 },
