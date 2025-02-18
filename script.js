@@ -84,40 +84,64 @@ const DOM = {
 
 DOM.form.addEventListener('submit', sendMessage);
 
-function sendMessage() {
-  const value = DOM.input.value;
-  if (value === '') {
-    return;
+function sendMessage(event) {
+  event.preventDefault();
+
+  const message = DOM.input.value;
+  const fileInput = DOM.form.querySelector('.message-form__file');
+  const file = fileInput.files[0];  // Get the selected file
+
+  if (message === '' && !file) {
+    return; // Don't send an empty message or without a file
   }
-  DOM.input.value = '';
+
+  if (message) {
+    sendTextMessage(message);  // Send a text message
+  }
+
+  if (file) {
+    sendImageMessage(file);  // Send an image message
+  }
+
+  DOM.input.value = '';  // Clear text input
+  fileInput.value = '';   // Clear file input
+}
+
+function sendTextMessage(text) {
   drone.publish({
     room: 'observable-room',
-    message: value,
+    message: { type: 'text', content: text },
   });
 }
 
-function createMemberElement(member) {
-  const { name, color } = member.clientData;
-  const el = document.createElement('div');
-  el.appendChild(document.createTextNode(name));
-  el.className = 'member';
-  el.style.color = color;
-  return el;
-}
-
-function updateMembersDOM() {
-  DOM.membersCount.innerText = `${members.length} users in room:`;
-  DOM.membersList.innerHTML = '';
-  members.forEach(member =>
-    DOM.membersList.appendChild(createMemberElement(member))
-  );
+function sendImageMessage(file) {
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    const base64Image = reader.result;
+    drone.publish({
+      room: 'observable-room',
+      message: { type: 'image', content: base64Image },
+    });
+  };
+  reader.readAsDataURL(file);  // Convert the image to base64
 }
 
 function createMessageElement(text, member) {
   const el = document.createElement('div');
-  el.appendChild(createMemberElement(member));
-  el.appendChild(document.createTextNode(text));
-  el.className = 'message';
+  const { name, color } = member.clientData;
+
+  if (text.type === 'text') {
+    el.className = 'message';
+    el.appendChild(createMemberElement(member));
+    el.appendChild(document.createTextNode(text.content));
+  } else if (text.type === 'image') {
+    const img = document.createElement('img');
+    img.src = text.content;  // Set the base64 image source
+    el.className = 'message image-message';
+    el.appendChild(createMemberElement(member));
+    el.appendChild(img);
+  }
+
   return el;
 }
 
