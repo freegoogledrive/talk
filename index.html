@@ -16,16 +16,21 @@
       max-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
-
-    .members-count,
+    
     .members-list {
       border: 1px solid #e4e4e4;
       padding: 15px;
       margin-bottom: 15px;
-      height: 200px; /* Fixed height for scrolling */
-      overflow-y: auto; /* Enable scrolling when content exceeds height */
+      height: 200px; /* Set a fixed height */
+      overflow-y: auto; /* Enable vertical scrolling */
     }
-
+    
+    .members-count,
+    .messages {
+      border: 1px solid #e4e4e4;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
 
     .messages {
       flex-shrink: 1;
