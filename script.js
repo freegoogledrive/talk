@@ -165,7 +165,7 @@ function resizeImage(file, callback) {
       
       //⚠️Settings⚠️
       const wantHeight = 200;
-      const compression = 0.5;
+      const compression = 0.25;
 
       //Calc Ratios
       const ratio = img.width / img.height
