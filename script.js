@@ -100,6 +100,7 @@ const DOM = {
 
 DOM.form.addEventListener('submit', sendMessage);
 
+//send message and or file
 let canSend = true;  // Flag to control message sending
 function sendMessage(event) {
   event.preventDefault();
@@ -111,10 +112,18 @@ function sendMessage(event) {
   const fileInput = DOM.form.querySelector('.message-form__file');
   const file = fileInput.files[0];  // Get the selected file
 
-  if (message === '' && !file) {
-    return; // Don't send an empty message or without a file
-  }
+  // Emoji & Non-Emoji Character Limits
+  const emojiCount = (message.match(/[\p{Emoji}]/gu) || []).length;
+  const nonEmojiCount = (message.match(/[^\p{Emoji}\s]/gu) || []).length;
 
+  //⚠️settings⚠️
+  const MaxEmoji = 10;
+  const MaxNonEmoji = 800;
+  
+  if (emojiCount >= 10 || nonEmojiCount >= 800) return; // if more than max emoji or non emoji counts return
+
+  if (message === '' && !file) return; // Don't send an empty message or without a file
+  
   // Set canSend to false, indicating the timeout period is active
   canSend = false;
 
@@ -154,7 +163,7 @@ function resizeImage(file, callback) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      //Settings
+      //⚠️Settings⚠️
       const wantHeight = 200;
       const compression = 0.5;
 
