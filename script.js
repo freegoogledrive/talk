@@ -127,9 +127,11 @@ function sendMessage(event) {
   // Set canSend to false, indicating the timeout period is active
   canSend = false;
 
+  /*
   if (file) {
     sendImageMessage(file);  // Send an image message
   }
+  */
 
   if (message) {
     sendTextMessage(message);  // Send a text message
