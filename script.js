@@ -120,7 +120,7 @@ function sendMessage(event) {
   const MaxEmoji = 10;
   const MaxNonEmoji = 800;
   
-  if (emojiCount >= 10 || nonEmojiCount >= 800) return; // if more than max emoji or non emoji counts return
+  if (emojiCount > 10 || nonEmojiCount > 800) return; // if more than max emoji or non emoji counts return
 
   if (message === '' && !file) return; // Don't send an empty message or without a file
   
