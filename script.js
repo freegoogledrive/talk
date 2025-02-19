@@ -142,16 +142,23 @@ function resizeImage(file, callback) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      // Set canvas size to 200x200
-      canvas.width = 100;
-      canvas.height = 100;
+      //Settings
+      const wantHeight = 200;
       const compression = 0.5;
+
+      //Calc Ratios
+      const ratio = img.width / img.height
+      const widthCalc = ratio * wantHeight
+      
+      //Set Canvas Stuff
+      canvas.width = widthCalc;
+      canvas.height = wantHeight;
       
       // Draw the image on the canvas, automatically resized to fit
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       // Convert the resized image to a Base64 string
-      const resizedBase64 = canvas.toDataURL(file.type, compression); // File type: "image/png", "image/jpeg", etc.
+      const resizedBase64 = canvas.toDataURL('image/jpeg', compression); // File type: "image/png", "image/jpeg", etc.
       callback(resizedBase64);
     };
     
