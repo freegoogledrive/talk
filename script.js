@@ -132,7 +132,7 @@ function sendMessage(event) {
   // Re-enable sending after 1 second
   setTimeout(() => {
     canSend = true;  // Allow message sending again after timeout
-  }, 10000); // 1-second delay before the next send
+  }, 1000); // 1-second delay before the next send
 }
 
 function sendTextMessage(text) {
