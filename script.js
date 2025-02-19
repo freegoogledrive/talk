@@ -100,8 +100,12 @@ const DOM = {
 
 DOM.form.addEventListener('submit', sendMessage);
 
+let canSend = true;  // Flag to control message sending
 function sendMessage(event) {
   event.preventDefault();
+  
+  console.log(canSend); // Check the value of canSend
+  if (!canSend) return;  // Prevent sending if timeout hasn't passed
 
   const message = DOM.input.value;
   const fileInput = DOM.form.querySelector('.message-form__file');
@@ -110,6 +114,9 @@ function sendMessage(event) {
   if (message === '' && !file) {
     return; // Don't send an empty message or without a file
   }
+
+  // Set canSend to false, indicating the timeout period is active
+  canSend = false;
 
   if (file) {
     sendImageMessage(file);  // Send an image message
@@ -120,7 +127,12 @@ function sendMessage(event) {
   }
 
   DOM.input.value = '';  // Clear text input
-  fileInput.value = '';   // Clear file input
+  fileInput.value = '';   // Clear file input\
+
+  // Re-enable sending after 1 second
+  setTimeout(() => {
+    canSend = true;  // Allow message sending again after timeout
+  }, 10000); // 1-second delay before the next send
 }
 
 function sendTextMessage(text) {
