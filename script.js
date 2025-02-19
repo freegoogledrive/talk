@@ -111,12 +111,12 @@ function sendMessage(event) {
     return; // Don't send an empty message or without a file
   }
 
-  if (message) {
-    sendTextMessage(message);  // Send a text message
-  }
-
   if (file) {
     sendImageMessage(file);  // Send an image message
+  }
+
+  if (message) {
+    sendTextMessage(message);  // Send a text message
   }
 
   DOM.input.value = '';  // Clear text input
