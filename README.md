@@ -1,1 +1,1 @@
-Inproved the UGPS chat!
+UGPS chat with spam protection and image upload.
